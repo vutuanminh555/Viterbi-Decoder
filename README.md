@@ -1,6 +1,6 @@
 # Viterbi-Decoder
 - Bộ giải điều chế Viterbi được thiết kế để triển khai trên FPGA.
-- Cơ sở lý thuyết và Specification: Theory.pdf và Report.docx.
+- Cơ sở lý thuyết và Specification: Theory.pdf và Report.pdf.
 - Sau khi thiết kế, hệ thống sẽ được kiểm thử bằng file golden input và golden output: input - Vỉterbi.txt và output - Viterbi.txt.
 - Kết quả mô phỏng với direct test:
   
