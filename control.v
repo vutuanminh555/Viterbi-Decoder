@@ -40,14 +40,13 @@ end
 
 always @ (*) 
 begin
+    if(en == 1)
+    begin
     case(state)
     s0:
     begin
         en_extract=0; en_branch=0; en_add=0; en_memory=0; en_traceback=0;
-        if (en == 1)
-            nxt_state = s1;
-        else
-            nxt_state = state;
+        nxt_state = s1;
     end
     
     s1:
@@ -76,8 +75,19 @@ begin
         en_extract=0; en_branch=0; en_add=0; en_memory=1; en_traceback=1; // tat cac module khong dung den
         nxt_state = s4;
     end
+
+    default:
+    begin
+        en_extract=0; en_branch=0; en_add=0; en_memory=0; en_traceback=0;
+        nxt_state = s0;
+    end
     endcase
-    
+    end
+    else
+    begin
+        en_extract=0; en_branch=0; en_add=0; en_memory=0; en_traceback=0;
+        nxt_state = s0;
+    end
 end
 
 

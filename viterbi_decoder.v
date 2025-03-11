@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
-module viterbi_decoder(clk,rst,en,i_data,o_data,o_done);
+module viterbi_decoder(sys_clk,rst,en,i_data,o_data,o_done);
 
-input clk,rst,en;
+input sys_clk,rst,en;
 input [15:0] i_data;
 
 output [7:0] o_data;
@@ -15,7 +15,7 @@ wire [1:0] prv_st_00,prv_st_10,prv_st_01,prv_st_11;
 wire [1:0] node;
 wire [1:0] bck_prv_st_00,bck_prv_st_10,bck_prv_st_01,bck_prv_st_11;
 
-control C1 (.clk(clk),
+control C1 (.clk(sys_clk),
             .rst(rst),
             .en(en),
             .en_extract(en_e),
@@ -25,7 +25,7 @@ control C1 (.clk(clk),
             .en_traceback(en_t));
 
 extract_bit Ex1 (.rst(rst),
-                 .clk(clk),
+                 .clk(sys_clk),
                  .en_extract(en_e),
                  .i_data(i_data),
                  .o_Rx(rx));
@@ -42,7 +42,7 @@ branch_metric Br1 (.rst(rst),
                    .HD7(hd7),
                    .HD8(hd8));
 
-add_compare_select Add1 (.clk(clk),
+add_compare_select Add1 (.clk(sys_clk),
                          .rst(rst),
                          .en_add(en_a),
                          .HD1(hd1),
@@ -59,7 +59,7 @@ add_compare_select Add1 (.clk(clk),
                          .o_prv_st_11(prv_st_11),
                          .o_select_node(node));
 
- memory M1 (.clk(clk),
+ memory M1 (.clk(sys_clk),
             .rst(rst),
             .en_memory(en_m),
             .i_prv_st_00(prv_st_00),
@@ -71,7 +71,7 @@ add_compare_select Add1 (.clk(clk),
             .o_bck_prv_st_01(bck_prv_st_01),
             .o_bck_prv_st_11(bck_prv_st_11));
 
-traceback_output Tr1 (.clk(clk),
+traceback_output Tr1 (.clk(sys_clk),
                       .rst(rst),
                       .en_traceback(en_t),
                       .i_select_node(node),

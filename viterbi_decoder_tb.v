@@ -13,7 +13,7 @@ reg [12:0] index;
 integer file_outputs;
 reg [15:0] in_ram [0:1024];
 
-viterbi_decoder V1 (.clk(clk),
+viterbi_decoder V1 (.sys_clk(clk),
                     .rst(rst),
                     .en(en),
                     .i_data(i_data),
@@ -38,7 +38,7 @@ end
 // initial
 // begin
 //      index <= 1;
-//      $readmemb("C:/Users/vutua/Downloads/VLSI/Project/Teams/input - Viterbi.txt", in_ram); 
+//      $readmemb("C:/Users/vutua/Downloads/Viterbi-Decoder-main/Viterbi-Decoder-main/input - Viterbi.txt", in_ram); 
 //      file_outputs = $fopen("output.txt", "w");
 //      i_data = in_ram[0];
 // end
@@ -63,7 +63,7 @@ end
 //direct test
 initial
 begin
-    i_data = 16'b1101101010100110;
+    i_data = 16'b1101101010100110; //1111111111111111 ;//0110010101011011; //1101101010100110
 end
 
 always @ (posedge o_done)

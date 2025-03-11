@@ -24,7 +24,7 @@ reg [1:0] select_node, nxt_select_node;
 
 always @ (posedge clk or negedge rst)
 begin
-    if (rst ==0)
+    if (rst == 0)
     begin
         o_data <= 0;
         o_done <= 0;
@@ -37,12 +37,21 @@ begin
         if (en_traceback == 1) 
         begin
             select_node <= nxt_select_node;
-            count <= count + 1;   
+            if(count < 8 || count == 8)
+            begin
+                count <= count + 1;   
+                select_bit_out[count] <= in_bit;
+            end
+            else
+            begin
+                count <= count;
+                o_data <= select_bit_out;
+                o_done <= 1;
+            end
         end
         else
         begin // giu nguyen trang thai truoc day 
-            select_node <= i_select_node; // da co tin hieu select_node tu add_compare_select truoc khi traceback on
-
+            select_node <= i_select_node;
             count <= count;
             select_bit_out <= 8'b00000000;
             o_done <= 0;
@@ -105,19 +114,7 @@ begin
         in_bit = 1;
     end
     endcase
-    
-    select_bit_out[count] = in_bit;
 
-end
-
-always @ (posedge clk)
-begin
-    if (count == 8) // da du 8 bit 
-        begin
-            count <= 0;
-            o_data <= select_bit_out;
-            o_done <= 1;
-        end
 end
 
 endmodule

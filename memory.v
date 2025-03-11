@@ -10,7 +10,7 @@ output reg [1:0] o_bck_prv_st_00,o_bck_prv_st_10,o_bck_prv_st_01,o_bck_prv_st_11
 
 reg [3:0] count; 
 reg [1:0] trellis_diagr[0:3][0:7];
-reg [2:0] trace; 
+reg [2:0] trace;
 
 integer i;
 integer k;
@@ -40,7 +40,7 @@ begin
             count <= count + 1;
             end
 
-            if(count == 8)
+            if(count == 8 || count > 8)
             begin
                 o_bck_prv_st_00 <= trellis_diagr[0][trace]; 
                 o_bck_prv_st_10 <= trellis_diagr[2][trace]; 

@@ -8,7 +8,7 @@ module add_compare_select(clk, rst, en_add,
 input clk, rst, en_add;
 input [1:0] HD1, HD2, HD3, HD4, HD5, HD6, HD7, HD8;
 
-output reg [1:0] o_prv_st_00, o_prv_st_01, o_prv_st_10, o_prv_st_11; 
+output reg [1:0] o_prv_st_00, o_prv_st_01, o_prv_st_10, o_prv_st_11;
 output reg [1:0] o_select_node;
 
 reg [4:0] sum00, sum10, sum01, sum11; // dai gia tri tu 0 - 16 , phai can den 5 bit
@@ -38,11 +38,11 @@ begin
                 if(((HD1 + sum00) == (HD5 + sum01)) || ((HD1 + sum00) < (HD5 + sum01)))
                 begin
                     sum00 <= HD1 + sum00;
-                    o_prv_st_00 <= 2'b00; // 
+                    o_prv_st_00 <= 2'b00; 
                 end
-                else if((HD1 + sum00) > (HD5 + sum01))
+                else
                 begin
-                    sum00 <= HD5 + sum01; // 
+                    sum00 <= HD5 + sum01; 
                     o_prv_st_00 <= 2'b01;
                 end
             
@@ -104,13 +104,15 @@ end
 end
 
 
-always @ (*) // combinational logic
+always @ (posedge clk or negedge rst) // combinational logic
 begin
     if(rst == 0)
     begin 
         min_sum = 5'b11111;
         min_node = 2'b00;
     end
+    else
+    begin
     if(count == 8 || count > 8)  
         begin 
         if(sum00 < min_sum) // thu tu uu tien neu bang nhau: 00 > 10 > 01 > 11
@@ -118,22 +120,28 @@ begin
             min_sum = sum00;
             min_node = 2'b00;
         end
-        if(sum10 < min_sum) 
+        else if(sum10 < min_sum) 
         begin
             min_sum = sum10;
             min_node = 2'b10;
         end
-        if(sum01 < min_sum)
+        else if(sum01 < min_sum)
         begin
             min_sum = sum01;
             min_node = 2'b01;
         end
-        if(sum11 < min_sum)
+        else if(sum11 < min_sum)
         begin
             min_sum = sum11;
             min_node = 2'b11;
         end
         end
+        else
+        begin
+            min_sum = 5'b11111;
+            min_node = 2'b00;
+        end
+    end
 end
 
 endmodule
