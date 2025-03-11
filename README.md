@@ -19,11 +19,12 @@
   ==> 100% accuracy.
 
 *  Kết quả thử nghiệm trên PYNQ-Z2 sử dụng kiến trúc ZYNQ:
+  
   - Mô hình hệ thống:
 
   ![image](https://github.com/user-attachments/assets/8a4de453-3713-470f-8a2f-ec05817d4747)
 
-  - Input và Output của PL do PS kiểm soát thông qua giao thức AXI
+  - Input và Output của PL do PS kiểm soát thông qua giao thức AXI.
   - Kết quả Synthesis và Implementation:
 
   ![image](https://github.com/user-attachments/assets/1f079f18-ad19-4da5-8f6f-d540b62ac560)
